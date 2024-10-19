@@ -1,15 +1,23 @@
 import {Given, Then, When} from '@badeball/cypress-cucumber-preprocessor';
+import Login from '../../pages/Login';
+import Welcome from '../../pages/Welcome';
+
+const login = new Login();
+const welcome = new Welcome();
 
 Given('I visit the website', () => {
-  cy.visit('https://automaty-gd3cb.ondigitalocean.app/');
+  login.visit();
 });
 
 When('I enter valid credentials', () => {
-  cy.get('#username').type('admin');
-  cy.get('#password').type('admin');
-  cy.get('#sign-in').click();
+  login.signIn('admin', 'admin');
 });
 
 Then('I should be logged in', () => {
-  cy.get('#title-welcome-back', {timeout: 6000}).should('exist').and('have.text', 'Welcome back');
+  welcome.title.should('exist').and('have.text', 'Welcome back');
 });
+
+Then('can signout', () => {
+  welcome.signOut();
+  login.title.should('exist').and('have.text', 'Login');
+})
