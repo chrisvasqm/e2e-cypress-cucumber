@@ -1,4 +1,4 @@
-Feature: Automaty
+Feature: Login
 
 Scenario: Login with valid credentials
   Given I visit the website
